@@ -12,6 +12,26 @@
     "lib": [ "esnext" ],
     "types": [ "node" ],
     "baseUrl": "./",
+    "paths": {
+        "@/*": [
+            "./src/*"
+        ],
+        "@server/*": [
+            "./src/server/*"
+        ],
+        "@types/*": [
+            "./src/types/*"
+        ],
+        "@useCases/*": [
+            "./src/useCases/*"
+        ],
+        "@database/*": [
+            "./src/database/*"
+        ],
+        "@middleware/*": [
+            "./src/middlewares/*"
+        ],
+    },
   },
   "ts-node": {
     "esm": true
