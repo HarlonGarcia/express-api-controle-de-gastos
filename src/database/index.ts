@@ -1,14 +1,21 @@
-import knex from 'knex';
+import logger from '@/utils/logger';
+import config from '../../knexfile';
+import client from 'knex';
 
-export const knexPg = knex({
-    client: 'pg',
-    connection: {
-        connectionString: process.env.DATABASE_URL,
-        host: process.env.DB_HOST,
-        port: Number(process.env.DB_PORT),
-        user: process.env.DB_USER,
-        database: process.env.DB_NAME,
-        password: process.env.DB_PASSWORD,
-        ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false,
-    },
-});
+type KnexEnv = 'development' | 'staging' | 'production';
+
+const environment = (process.env.NODE_ENV as KnexEnv) || 'development';
+const envConfig = config[environment];
+
+export const knex = client(envConfig);
+
+export const testConnection = async () => {
+    try {
+        await knex.raw('SELECT 1+1 AS result');
+        logger.info('Database connection successful');
+        return null;
+    } catch (error) {
+        logger.error('Database connection failed:', error);
+        throw error;
+    }
+}

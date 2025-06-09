@@ -5,6 +5,7 @@ type IUser = {
     name: string;
     created_at: string;
     updated_at: string;
+    currency?: string;
 }
 
 type IUserPostRequest = Pick<IUser, 'name', 'email', 'password'>

@@ -4,6 +4,8 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "target": "ESNext",
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "esModuleInterop": true,
     "noEmit": true,
@@ -34,11 +36,14 @@
     },
   },
   "ts-node": {
-    "esm": true
+    "esm": true,
+     "experimentalSpecifierResolution": "node"
   },
   "exclude": [ "node_modules" ],
   "include": [
     "src/**/*.ts",
-    "bin/*.ts"
+    "**/*.ts",
+    "bin/*.ts",
+    "knexfile.ts",
   ]
 }
