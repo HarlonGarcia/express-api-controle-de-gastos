@@ -1,0 +1,9 @@
+services:
+    postgres:
+        image: postgres:latest
+        environment:
+            POSTGRES_USER: minoia
+            POSTGRES_PASSWORD: minoiadb
+            POSTGRES_DB: minoia
+        ports:
+            - "5432:5432"

@@ -6,7 +6,7 @@
   "main": "src/index.mts",
   "scripts": {
     "dev": "npx tsx src/index.ts",
-    "lint": "biome lint --write src/*",
+    "lint": "eslint lint --write src/*",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

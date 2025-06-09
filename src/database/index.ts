@@ -1,14 +1,36 @@
-import knex from 'knex';
+import * as config from '../../knexfile';
+import knexClient from 'knex';
 
-export const knexPg = knex({
-    client: 'pg',
-    connection: {
-        connectionString: process.env.DATABASE_URL,
-        host: process.env.DB_HOST,
-        port: Number(process.env.DB_PORT),
-        user: process.env.DB_USER,
-        database: process.env.DB_NAME,
-        password: process.env.DB_PASSWORD,
-        ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false,
+const environment = process.env.ENVIRONMENT || 'development';
+const envConfig = config[environment];
+
+export const knex = knexClient(envConfig);
+
+export const testConnection = async () => {
+    try {
+        await knex.raw('SELECT 1+1 AS result');
+        console.log('Database connection successful');
+        return null;
+    } catch (error) {
+        console.error('Database connection failed:', error);
+        throw error;
+    }
+}
+
+export const logger = {
+    tableExists: (table: string) => {
+        console.log(`[INFO] ${new Date().toISOString()} - Table ${table} already exists. Dropping it.`);
     },
-});
+    tableCreated: (table: string) => {
+        console.log(`[INFO] ${new Date().toISOString()} - Table ${table} created successfully.`);
+    },
+    info: (message: string) => {
+        console.warn(`[INFO] ${new Date().toISOString()} - ${message}`);
+    },
+    error: (message: string) => {
+        console.error(`[ERROR] ${new Date().toISOString()} - ${message}`);
+    },
+    warn: (message: string) => {
+        console.warn(`[WARN] ${new Date().toISOString()} - ${message}`);
+    }
+}

@@ -1,9 +1,9 @@
-import { knexPg } from '@/database';
+import { knex } from '@/database';
 import { Request, Response } from 'express';
 
 export async function getUsers(_: Request, response: Response) {
     try {
-        const users = await knexPg<IUser>('users').select('*');
+        const users = await knex<IUser>('users').select('*');
 
         response.status(200).json(users);
     } catch (error) {
