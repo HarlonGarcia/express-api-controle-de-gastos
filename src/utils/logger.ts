@@ -8,18 +8,18 @@ const colors = {
 };
 
 const logger = createLogger({
-  level: 'info',
-  format: format.combine(
-    format.timestamp(),
-    format.printf(({ timestamp, level, message }) =>
-      `[${timestamp}] ${level.toUpperCase()}: ${message}`
+    level: 'info',
+    format: format.combine(
+        format.timestamp(),
+        format.printf(
+            ({ timestamp, level, message }) => `[${timestamp}] ${level.toUpperCase()}: ${message}`
+        ),
+        format.colorize({
+            all: true,
+            colors: colors,
+        }),
     ),
-    format.colorize({
-      all: true,
-      colors: colors,
-    }),
-  ),
-  transports: [new transports.Console()],
+    transports: [new transports.Console()],
 });
 
 export default logger;
