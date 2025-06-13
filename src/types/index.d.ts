@@ -23,5 +23,12 @@ declare module 'knex/types/tables.js' {
             IUserPostRequest,
             IUserPatchRequest,
         >;
+        categories: ICategory;
+        categories_composite: Knex.CompositeTableType<
+            ICategory,
+            ICategoryPostRequest,
+            ICategoryPatchRequest,
+        >;
     }
+
 }
